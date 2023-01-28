@@ -1,0 +1,15 @@
+Cheat Sheet: https://portswigger.net/web-security/sql-injection/cheat-sheet
+
+IF app returns error based on altering param BUT returns data when query correct THEN
+    (1) determine number of columns;
+    (2) determine data type of columns;
+    (3) determine db version;
+    (4) find tables;
+    (5) find columns of a target table;
+
+ELSE IF app returns no error AND response has alteration THEN
+    (6) use sqlmap for Blind based
+ELSE IF app returns error THEN
+    (6) manually search for Error based
+ELSE
+    (7) Blind sqli out-of-band interaction

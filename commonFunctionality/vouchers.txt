@@ -1,0 +1,4 @@
+# Try generate more than one voucher
+
+# Create two accounts. Generate vouchers. Check if voucher is account specific
+

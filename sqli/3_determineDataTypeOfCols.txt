@@ -1,0 +1,4 @@
+Given that you have identified the number of cols, for each col, insert a string, boolean or integer payload and check whether the
+application raises an error or not. If no error, then the column type has been identified. E.g.
+
+1" UNION SELECT "string",NULL,NULL --> 200 --> then the first olumn is of type string

