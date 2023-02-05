@@ -1,0 +1,21 @@
+A: Simple Brute force
+Application returns whether username exists or not. No rate limiting
+
+B: Bypass 2fa
+You have credentials of user, but app requires 2fa. Simply navigate to another domain-valid page
+
+C: Reset Password ( more on commonFunctionality -> resetPassword.txt )
+Try remove token, change username
+
+D: Response timing
+Brute force with X-Forwarded-For and check response times for usernames. Then brute force passwords
+
+E: 
+
+
+BUSINESS LOGIC
+
+: Dropping Requests
+Analyse the requests made. Identify a restricted page. If the app requires you to submit a given role to access certain pages, try drop this request,
+then directly access the restricted page
+

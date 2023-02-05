@@ -1,0 +1,10 @@
+Web cache poisoning via ambiguous requests
+Host: original.com
+Host: malicious.com
+...
+<script src="https://malicious.com/resource/js/tracking.js">
+
+Host header authentication bypass
+GET /admin
+Host: localhost
+

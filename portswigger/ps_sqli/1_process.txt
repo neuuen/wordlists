@@ -1,3 +1,5 @@
+TO-DO: Conditional Based Errors
+
 Cheat Sheet: https://portswigger.net/web-security/sql-injection/cheat-sheet
 
 IF app returns error based on altering param BUT returns data when query correct THEN

