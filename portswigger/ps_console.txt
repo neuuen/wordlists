@@ -1,0 +1,9 @@
+Make A Request and Get Contents
+fetch('https://0ac8003103ed83e3c0675e24006400ca.web-security-academy.net/accountDetails')
+  .then(res => res.json())
+  .then(console.log) 
+
+Base64 Encode and Decode
+> Encode: btoa(text)
+> Decode: atob(encoded)
+

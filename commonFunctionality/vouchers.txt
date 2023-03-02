@@ -2,3 +2,19 @@
 
 # Create two accounts. Generate vouchers. Check if voucher is account specific
 
+Purchase Any Product For Free (Voucher)
+> Able to purchase gift card
+> Free unlimited coupons granting discount
+> Purchase gift card with coupon
+> Redeem gift card
+> Gift card redeems for 10$, but purchase is 7$(discount with coupon), 3$ free
+> Check if process is repeatable. If so, free money
+
+Purchase Any Product For Free (Insufficient Validation)
+> Typicall flow is: add product to basket(A) -> Purchase(B) -> Confirmation request(C)
+> Instead of goinf A->B->C, try A->C
+
+
+
+Can you purchase less than 1 items, at minus cost?
+Can you update your email to that of another email without verification? 

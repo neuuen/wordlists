@@ -1,0 +1,5 @@
+btoa() to base64 encode
+atob() to base64 decode
+eval() to execute string command
+fetch(url)
+<iframe src="http://...com"></iframe>

